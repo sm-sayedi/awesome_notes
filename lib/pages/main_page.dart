@@ -1,12 +1,14 @@
 import 'package:awesome_notes/core/constants.dart';
+import 'package:awesome_notes/pages/new_or_edit_note_page.dart';
+import 'package:awesome_notes/widgets/note_icon_button.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import '../widgets/note_fab.dart';
 import '../widgets/note_grid.dart';
+import '../widgets/note_icon_button_outlined.dart';
 import '../widgets/notes_list.dart';
 import '../widgets/search_field.dart';
-
 
 class MainPage extends StatefulWidget {
   const MainPage({super.key});
@@ -30,23 +32,24 @@ class _MainPageState extends State<MainPage> {
       appBar: AppBar(
         title: const Text('Awesome Notes 📒'),
         actions: [
-          IconButton(
+          NoteIconButtonOutlined(
+            icon: FontAwesomeIcons.rightFromBracket,
             onPressed: () {},
-            icon: const FaIcon(FontAwesomeIcons.rightFromBracket),
-            style: IconButton.styleFrom(
-              backgroundColor: primary,
-              foregroundColor: white,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(12),
-                side: const BorderSide(
-                  color: black,
-                ),
-              ),
-            ),
           ),
         ],
       ),
-      floatingActionButton: const NoteFab(),
+      floatingActionButton: NoteFab(
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const NewOrEditNotePage(
+                isNewNote: true,
+              ),
+            ),
+          );
+        },
+      ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16.0),
         child: Column(
@@ -56,25 +59,16 @@ class _MainPageState extends State<MainPage> {
               padding: const EdgeInsets.symmetric(vertical: 8.0),
               child: Row(
                 children: [
-                  IconButton(
+                  NoteIconButton(
+                    icon: isDescending
+                        ? FontAwesomeIcons.arrowDown
+                        : FontAwesomeIcons.arrowUp,
+                    size: 18,
                     onPressed: () {
                       setState(() {
                         isDescending = !isDescending;
                       });
                     },
-                    icon: FaIcon(
-                      isDescending
-                          ? FontAwesomeIcons.arrowDown
-                          : FontAwesomeIcons.arrowUp,
-                    ),
-                    padding: EdgeInsets.zero,
-                    visualDensity: VisualDensity.compact,
-                    constraints: const BoxConstraints(),
-                    style: IconButton.styleFrom(
-                      tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                    ),
-                    iconSize: 18,
-                    color: gray700,
                   ),
                   const SizedBox(width: 16),
                   DropdownButton<String>(
@@ -115,25 +109,16 @@ class _MainPageState extends State<MainPage> {
                     },
                   ),
                   const Spacer(),
-                  IconButton(
+                  NoteIconButton(
+                    icon: isGrid
+                        ? FontAwesomeIcons.tableCellsLarge
+                        : FontAwesomeIcons.bars,
+                    size: 18,
                     onPressed: () {
                       setState(() {
                         isGrid = !isGrid;
                       });
                     },
-                    icon: FaIcon(
-                      isGrid
-                          ? FontAwesomeIcons.tableCellsLarge
-                          : FontAwesomeIcons.bars,
-                    ),
-                    padding: EdgeInsets.zero,
-                    visualDensity: VisualDensity.compact,
-                    constraints: const BoxConstraints(),
-                    style: IconButton.styleFrom(
-                      tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                    ),
-                    iconSize: 18,
-                    color: gray700,
                   ),
                 ],
               ),
