@@ -6,8 +6,11 @@ import '../core/constants.dart';
 
 class NoteToolbar extends StatelessWidget {
   const NoteToolbar({
+    required this.controller,
     super.key,
   });
+
+  final QuillController controller;
 
   @override
   Widget build(BuildContext context) {
@@ -28,75 +31,94 @@ class NoteToolbar extends StatelessWidget {
           ),
         ],
       ),
-      child: const QuillToolbar(
-        configurations: QuillToolbarConfigurations(
-          multiRowsDisplay: false,
-          showFontFamily: false,
-          showFontSize: false,
-          showSubscript: false,
-          showSuperscript: false,
-          showSmallButton: false,
-          showInlineCode: false,
-          showAlignmentButtons: false,
-          showDirection: false,
-          showDividers: false,
-          showHeaderStyle: false,
-          showListCheck: false,
-          showCodeBlock: false,
-          showQuote: false,
-          showIndent: false,
-          showLink: false,
-          buttonOptions: QuillToolbarButtonOptions(
-            undoHistory: QuillToolbarHistoryButtonOptions(
-              isUndo: true,
-              iconData: FontAwesomeIcons.arrowRotateLeft,
-              iconSize: 22,
-            ),
-            redoHistory: QuillToolbarHistoryButtonOptions(
-              isUndo: false,
-              iconData: FontAwesomeIcons.arrowRotateRight,
-              iconSize: 22,
-            ),
-            bold: QuillToolbarToggleStyleButtonOptions(
-              iconData: FontAwesomeIcons.bold,
-              iconSize: 22,
-            ),
-            italic: QuillToolbarToggleStyleButtonOptions(
-              iconData: FontAwesomeIcons.italic,
-              iconSize: 22,
-            ),
-            underLine: QuillToolbarToggleStyleButtonOptions(
-              iconData: FontAwesomeIcons.underline,
-              iconSize: 22,
-            ),
-            strikeThrough: QuillToolbarToggleStyleButtonOptions(
-              iconData: FontAwesomeIcons.strikethrough,
-              iconSize: 22,
-            ),
-            color: QuillToolbarColorButtonOptions(
-              iconData: FontAwesomeIcons.palette,
-              iconSize: 22,
-            ),
-            backgroundColor: QuillToolbarColorButtonOptions(
-              iconData: FontAwesomeIcons.fillDrip,
-              iconSize: 22,
-            ),
-            clearFormat: QuillToolbarClearFormatButtonOptions(
-              iconData: FontAwesomeIcons.textSlash,
-              iconSize: 22,
-            ),
-            listNumbers: QuillToolbarToggleStyleButtonOptions(
-              iconData: FontAwesomeIcons.listOl,
-              iconSize: 22,
-            ),
-            listBullets: QuillToolbarToggleStyleButtonOptions(
-              iconData: FontAwesomeIcons.listUl,
-              iconSize: 22,
-            ),
-            search: QuillToolbarSearchButtonOptions(
-              iconData: FontAwesomeIcons.magnifyingGlass,
-              iconSize: 22,
-            ),
+      child: QuillToolbar(
+        child: SingleChildScrollView(
+          scrollDirection: Axis.horizontal,
+          child: Row(
+            children: [
+              QuillToolbarHistoryButton(
+                controller: controller,
+                isUndo: true,
+                options: const QuillToolbarHistoryButtonOptions(
+                  iconData: FontAwesomeIcons.arrowRotateLeft,
+                ),
+              ),
+              QuillToolbarHistoryButton(
+                controller: controller,
+                isUndo: false,
+                options: const QuillToolbarHistoryButtonOptions(
+                  iconData: FontAwesomeIcons.arrowRotateRight,
+                ),
+              ),
+              QuillToolbarToggleStyleButton(
+                controller: controller,
+                attribute: Attribute.bold,
+                options: const QuillToolbarToggleStyleButtonOptions(
+                  iconData: FontAwesomeIcons.bold,
+                ),
+              ),
+              QuillToolbarToggleStyleButton(
+                controller: controller,
+                attribute: Attribute.italic,
+                options: const QuillToolbarToggleStyleButtonOptions(
+                  iconData: FontAwesomeIcons.italic,
+                ),
+              ),
+              QuillToolbarToggleStyleButton(
+                controller: controller,
+                attribute: Attribute.underline,
+                options: const QuillToolbarToggleStyleButtonOptions(
+                  iconData: FontAwesomeIcons.underline,
+                ),
+              ),
+              QuillToolbarToggleStyleButton(
+                controller: controller,
+                attribute: Attribute.strikeThrough,
+                options: const QuillToolbarToggleStyleButtonOptions(
+                  iconData: FontAwesomeIcons.strikethrough,
+                ),
+              ),
+              QuillToolbarColorButton(
+                controller: controller,
+                isBackground: false,
+                options: const QuillToolbarColorButtonOptions(
+                  iconData: FontAwesomeIcons.palette,
+                ),
+              ),
+              QuillToolbarColorButton(
+                controller: controller,
+                isBackground: true,
+                options: const QuillToolbarColorButtonOptions(
+                  iconData: FontAwesomeIcons.fillDrip,
+                ),
+              ),
+              QuillToolbarClearFormatButton(
+                controller: controller,
+                options: const QuillToolbarClearFormatButtonOptions(
+                  iconData: FontAwesomeIcons.textSlash,
+                ),
+              ),
+              QuillToolbarToggleStyleButton(
+                controller: controller,
+                attribute: Attribute.ol,
+                options: const QuillToolbarToggleStyleButtonOptions(
+                  iconData: FontAwesomeIcons.listOl,
+                ),
+              ),
+              QuillToolbarToggleStyleButton(
+                controller: controller,
+                attribute: Attribute.ul,
+                options: const QuillToolbarToggleStyleButtonOptions(
+                  iconData: FontAwesomeIcons.listUl,
+                ),
+              ),
+              QuillToolbarSearchButton(
+                controller: controller,
+                options: const QuillToolbarSearchButtonOptions(
+                  iconData: FontAwesomeIcons.magnifyingGlass,
+                ),
+              ),
+            ],
           ),
         ),
       ),

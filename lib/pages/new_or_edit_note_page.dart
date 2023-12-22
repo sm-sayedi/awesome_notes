@@ -88,18 +88,19 @@ class _NewOrEditNotePageState extends State<NewOrEditNotePage> {
         padding: const EdgeInsets.all(8.0),
         child: Column(
           children: [
-            const TextField(
-              style: TextStyle(
+            TextField(
+              style: const TextStyle(
                 fontSize: 24,
                 fontWeight: FontWeight.bold,
               ),
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 hintText: 'Title here',
                 hintStyle: TextStyle(
                   color: gray300,
                 ),
                 border: InputBorder.none,
               ),
+              canRequestFocus: !readOnly,
             ),
             if (!widget.isNewNote) ...[
               const Row(
@@ -189,24 +190,21 @@ class _NewOrEditNotePageState extends State<NewOrEditNotePage> {
               child: Divider(color: gray500, thickness: 2),
             ),
             Expanded(
-              child: QuillProvider(
-                configurations:
-                    QuillConfigurations(controller: quillController),
-                child: Column(
-                  children: [
-                    Expanded(
-                      child: QuillEditor.basic(
-                        configurations: QuillEditorConfigurations(
-                          placeholder: 'Note here...',
-                          expands: true,
-                          readOnly: readOnly,
-                        ),
-                        focusNode: focusNode,
+              child: Column(
+                children: [
+                  Expanded(
+                    child: QuillEditor.basic(
+                      configurations: QuillEditorConfigurations(
+                        controller: quillController,
+                        placeholder: 'Note here...',
+                        expands: true,
+                        readOnly: readOnly,
                       ),
+                      focusNode: focusNode,
                     ),
-                    if (!readOnly) const NoteToolbar(),
-                  ],
-                ),
+                  ),
+                  if (!readOnly) NoteToolbar(controller: quillController),
+                ],
               ),
             ),
           ],
