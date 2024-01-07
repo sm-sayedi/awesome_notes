@@ -2,14 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import '../core/constants.dart';
+import '../models/note.dart';
 import '../pages/new_or_edit_note_page.dart';
 
 class NoteCard extends StatelessWidget {
   const NoteCard({
+    required this.note,
     required this.isInGrid,
     super.key,
   });
 
+  final Note note;
   final bool isInGrid;
 
   @override
