@@ -1,15 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:intl/intl.dart';
 
 import '../core/constants.dart';
+import '../models/note.dart';
 import '../pages/new_or_edit_note_page.dart';
+import 'note_tag.dart';
 
 class NoteCard extends StatelessWidget {
   const NoteCard({
+    required this.note,
     required this.isInGrid,
     super.key,
   });
 
+  final Note note;
   final bool isInGrid;
 
   @override
@@ -44,70 +49,59 @@ class NoteCard extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text(
-              'This is going to be a title',
-              maxLines: 1,
-              overflow: TextOverflow.ellipsis,
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 16,
-                color: gray900,
+            if (note.title != null) ...[
+              Text(
+                note.title!,
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+                style: const TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 16,
+                  color: gray900,
+                ),
               ),
-            ),
-            const SizedBox(height: 4),
-            SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              child: Row(
-                children: List.generate(
-                  3,
-                  (index) => Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(16),
-                      color: gray100,
-                    ),
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 12,
-                      vertical: 2,
-                    ),
-                    margin: const EdgeInsets.only(right: 4),
-                    child: const Text(
-                      'First chip',
-                      style: TextStyle(
-                        fontSize: 12,
-                        color: gray700,
-                      ),
-                    ),
+              const SizedBox(height: 4),
+            ],
+            if (note.tags != null) ...[
+              SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: Row(
+                  children: List.generate(
+                    note.tags!.length,
+                    (index) => NoteTag(label: note.tags![index]),
                   ),
                 ),
               ),
-            ),
-            const SizedBox(height: 4),
-            if (isInGrid)
-              const Expanded(
-                child: Text(
-                  'Some content',
-                  style: TextStyle(color: gray700),
-                ),
-              )
-            else
-              const Text(
-                'Some content',
-                maxLines: 3,
-                overflow: TextOverflow.ellipsis,
-                style: TextStyle(color: gray700),
-              ),
-            const Row(
+              const SizedBox(height: 4),
+            ],
+            if (note.content != null)
+              isInGrid
+                  ? Expanded(
+                      child: Text(
+                        note.content!,
+                        style: const TextStyle(color: gray700),
+                      ),
+                    )
+                  : Text(
+                      note.content!,
+                      maxLines: 3,
+                      overflow: TextOverflow.ellipsis,
+                      style: const TextStyle(color: gray700),
+                    ),
+            if (isInGrid) const Spacer(),
+            Row(
               children: [
                 Text(
-                  '02 Nov, 2023',
-                  style: TextStyle(
+                  DateFormat('dd MMM, y').format(
+                      DateTime.fromMicrosecondsSinceEpoch(note.dateCreated)),
+                  style: const TextStyle(
                     fontSize: 12,
                     fontWeight: FontWeight.w600,
                     color: gray500,
                   ),
                 ),
-                Spacer(),
-                FaIcon(
+                const Spacer(),
+                const FaIcon(
                   FontAwesomeIcons.trash,
                   color: gray500,
                   size: 16,
