@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 import '../core/constants.dart';
-import 'new_tag_dialog.dart';
 
 class DialogCard extends StatelessWidget {
   const DialogCard({
