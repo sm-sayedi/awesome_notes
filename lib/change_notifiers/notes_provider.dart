@@ -18,4 +18,9 @@ class NotesProvider extends ChangeNotifier {
     _notes[index] = note;
     notifyListeners();
   }
+
+  void deleteNote(Note note) {
+    _notes.remove(note);
+    notifyListeners();
+  }
 }

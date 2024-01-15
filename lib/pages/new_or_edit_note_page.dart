@@ -5,6 +5,7 @@ import 'package:flutter_quill/flutter_quill.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 
+import '../core/dialogs.dart';
 import '../widgets/confirmation_dialog.dart';
 import '../widgets/dialog_card.dart';
 import '../widgets/note_icon_button_outlined.dart';
@@ -76,10 +77,7 @@ class _NewOrEditNotePageState extends State<NewOrEditNotePage> {
           return;
         }
 
-        final bool? shouldSave = await showDialog<bool?>(
-          context: context,
-          builder: (_) => const DialogCard(child: ConfirmationDialog()),
-        );
+        final bool? shouldSave = await showConfirmationDialog(context: context);
 
         if (shouldSave == null) return;
 
@@ -160,7 +158,9 @@ class _NewOrEditNotePageState extends State<NewOrEditNotePage> {
                   },
                 ),
               ),
-              NoteMetadata(note: newNoteController.note,),
+              NoteMetadata(
+                note: newNoteController.note,
+              ),
               const Padding(
                 padding: EdgeInsets.symmetric(vertical: 8.0),
                 child: Divider(color: gray500, thickness: 2),
