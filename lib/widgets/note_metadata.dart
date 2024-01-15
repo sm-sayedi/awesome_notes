@@ -4,23 +4,26 @@ import 'package:provider/provider.dart';
 
 import '../change_notifiers/new_note_controller.dart';
 import '../core/constants.dart';
+import '../core/dialogs.dart';
+import '../core/utils.dart';
+import '../models/note.dart';
 import 'dialog_card.dart';
 import 'new_tag_dialog.dart';
 import 'note_icon_button.dart';
 import 'note_tag.dart';
 
-class NoteMetaData extends StatefulWidget {
-  const NoteMetaData({
-    required this.isNewNote,
+class NoteMetadata extends StatefulWidget {
+  const NoteMetadata({
+    required this.note,
     super.key,
   });
-  final bool isNewNote;
+  final Note? note;
 
   @override
-  State<NoteMetaData> createState() => _NoteMetaDataState();
+  State<NoteMetadata> createState() => _NoteMetadataState();
 }
 
-class _NoteMetaDataState extends State<NoteMetaData> {
+class _NoteMetadataState extends State<NoteMetadata> {
   late final NewNoteController newNoteController;
 
   @override
@@ -34,10 +37,10 @@ class _NoteMetaDataState extends State<NoteMetaData> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        if (!widget.isNewNote) ...[
-          const Row(
+        if (widget.note != null) ...[
+          Row(
             children: [
-              Expanded(
+              const Expanded(
                 flex: 3,
                 child: Text(
                   'Last Modified',
@@ -50,8 +53,8 @@ class _NoteMetaDataState extends State<NoteMetaData> {
               Expanded(
                 flex: 5,
                 child: Text(
-                  '07 December 2023, 03:35 PM',
-                  style: TextStyle(
+                  toLongDate(widget.note!.dateModified),
+                  style: const TextStyle(
                     fontWeight: FontWeight.bold,
                     color: gray900,
                   ),
@@ -59,9 +62,9 @@ class _NoteMetaDataState extends State<NoteMetaData> {
               ),
             ],
           ),
-          const Row(
+          Row(
             children: [
-              Expanded(
+              const Expanded(
                 flex: 3,
                 child: Text(
                   'Created',
@@ -74,8 +77,8 @@ class _NoteMetaDataState extends State<NoteMetaData> {
               Expanded(
                 flex: 5,
                 child: Text(
-                  '06 December 2023, 03:35 PM',
-                  style: TextStyle(
+                  toLongDate(widget.note!.dateCreated),
+                  style: const TextStyle(
                     fontWeight: FontWeight.bold,
                     color: gray900,
                   ),
@@ -101,11 +104,8 @@ class _NoteMetaDataState extends State<NoteMetaData> {
                   NoteIconButton(
                     icon: FontAwesomeIcons.circlePlus,
                     onPressed: () async {
-                      final String? tag = await showDialog<String?>(
-                        context: context,
-                        builder: (context) =>
-                            const DialogCard(child: NewTagDialog()),
-                      );
+                      final String? tag =
+                          await showNewTagDialog(context: context);
 
                       if (tag != null) {
                         newNoteController.addTag(tag);
@@ -136,6 +136,16 @@ class _NoteMetaDataState extends State<NoteMetaData> {
                               label: tags[index],
                               onClosed: () {
                                 newNoteController.removeTag(index);
+                              },
+                              onTap: () async {
+                                final String? tag = await showNewTagDialog(
+                                  context: context,
+                                  tag: tags[index],
+                                );
+
+                                if (tag != null && tag != tags[index]) {
+                                  newNoteController.updateTag(tag, index);
+                                }
                               },
                             ),
                           ),

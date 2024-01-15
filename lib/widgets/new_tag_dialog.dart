@@ -6,7 +6,9 @@ import 'note_button.dart';
 class NewTagDialog extends StatefulWidget {
   const NewTagDialog({
     super.key,
+    this.tag,
   });
+  final String? tag;
 
   @override
   State<NewTagDialog> createState() => _NewTagDialogState();
@@ -21,7 +23,7 @@ class _NewTagDialogState extends State<NewTagDialog> {
   void initState() {
     super.initState();
 
-    tagController = TextEditingController();
+    tagController = TextEditingController(text: widget.tag);
 
     tagKey = GlobalKey();
   }
@@ -88,24 +90,13 @@ class _NewTagDialogState extends State<NewTagDialog> {
           },
         ),
         const SizedBox(height: 24),
-        DecoratedBox(
-          decoration: BoxDecoration(
-            boxShadow: const [
-              BoxShadow(
-                offset: Offset(2, 2),
-                color: black,
-              ),
-            ],
-            borderRadius: BorderRadius.circular(8),
-          ),
-          child: NoteButton(
-            label: 'Add',
-            onPressed: () {
-              if (tagKey.currentState?.validate() ?? false) {
-                Navigator.pop(context, tagController.text.trim());
-              }
-            },
-          ),
+        NoteButton(
+          label: 'Add',
+          onPressed: () {
+            if (tagKey.currentState?.validate() ?? false) {
+              Navigator.pop(context, tagController.text.trim());
+            }
+          },
         ),
       ],
     );

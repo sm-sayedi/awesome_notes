@@ -11,4 +11,11 @@ class NotesProvider extends ChangeNotifier {
     _notes.add(note);
     notifyListeners();
   }
+
+  void updateNote(Note note) {
+    final index =
+        _notes.indexWhere((element) => element.dateCreated == note.dateCreated);
+    _notes[index] = note;
+    notifyListeners();
+  }
 }

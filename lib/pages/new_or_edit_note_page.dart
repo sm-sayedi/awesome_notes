@@ -8,7 +8,7 @@ import 'package:provider/provider.dart';
 import '../widgets/confirmation_dialog.dart';
 import '../widgets/dialog_card.dart';
 import '../widgets/note_icon_button_outlined.dart';
-import '../widgets/note_meta_data.dart';
+import '../widgets/note_metadata.dart';
 import '../widgets/note_toolbar.dart';
 
 class NewOrEditNotePage extends StatefulWidget {
@@ -25,6 +25,7 @@ class NewOrEditNotePage extends StatefulWidget {
 
 class _NewOrEditNotePageState extends State<NewOrEditNotePage> {
   late final NewNoteController newNoteController;
+  late final TextEditingController titleController;
   late final QuillController quillController;
 
   late final FocusNode focusNode;
@@ -34,6 +35,8 @@ class _NewOrEditNotePageState extends State<NewOrEditNotePage> {
     super.initState();
 
     newNoteController = context.read<NewNoteController>();
+
+    titleController = TextEditingController(text: newNoteController.title);
 
     quillController = QuillController.basic()
       ..addListener(() {
@@ -48,12 +51,14 @@ class _NewOrEditNotePageState extends State<NewOrEditNotePage> {
         newNoteController.readOnly = false;
       } else {
         newNoteController.readOnly = true;
+        quillController.document = newNoteController.content;
       }
     });
   }
 
   @override
   void dispose() {
+    titleController.dispose();
     quillController.dispose();
     focusNode.dispose();
     super.dispose();
@@ -137,6 +142,7 @@ class _NewOrEditNotePageState extends State<NewOrEditNotePage> {
               Selector<NewNoteController, bool>(
                 selector: (context, controller) => controller.readOnly,
                 builder: (context, readOnly, child) => TextField(
+                  controller: titleController,
                   style: const TextStyle(
                     fontSize: 24,
                     fontWeight: FontWeight.bold,
@@ -154,7 +160,7 @@ class _NewOrEditNotePageState extends State<NewOrEditNotePage> {
                   },
                 ),
               ),
-             NoteMetaData(isNewNote: widget.isNewNote),
+              NoteMetadata(note: newNoteController.note,),
               const Padding(
                 padding: EdgeInsets.symmetric(vertical: 8.0),
                 child: Divider(color: gray500, thickness: 2),
