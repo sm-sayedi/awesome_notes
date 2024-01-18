@@ -1,8 +1,6 @@
 import 'package:awesome_notes/change_notifiers/new_note_controller.dart';
 import 'package:awesome_notes/change_notifiers/notes_provider.dart';
-import 'package:awesome_notes/core/constants.dart';
 import 'package:awesome_notes/pages/new_or_edit_note_page.dart';
-import 'package:awesome_notes/widgets/note_icon_button.dart';
 import 'package:awesome_notes/widgets/view_options.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -54,19 +52,29 @@ class _MainPageState extends State<MainPage> {
       body: Consumer<NotesProvider>(
         builder: (context, notesProvider, child) {
           final List<Note> notes = notesProvider.notes;
-          return notes.isEmpty
+          return notes.isEmpty && notesProvider.searchTerm.isEmpty
               ? const NoNotes()
               : Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 16.0),
                   child: Column(
                     children: [
                       const SearchField(),
-                      const ViewOptions(),
-                      Expanded(
-                        child: notesProvider.isGrid
-                            ? NotesGrid(notes: notes)
-                            : NotesList(notes: notes),
-                      ),
+                      if (notes.isNotEmpty) ...[
+                        const ViewOptions(),
+                        Expanded(
+                          child: notesProvider.isGrid
+                              ? NotesGrid(notes: notes)
+                              : NotesList(notes: notes),
+                        ),
+                      ] else
+                        const Expanded(
+                          child: Center(
+                            child: Text(
+                              'No notes found for your search query!',
+                              textAlign: TextAlign.center,
+                            ),
+                          ),
+                        ),
                     ],
                   ),
                 );

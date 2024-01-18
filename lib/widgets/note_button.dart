@@ -18,9 +18,9 @@ class NoteButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return DecoratedBox(
       decoration: BoxDecoration(
-        boxShadow:  [
+        boxShadow: [
           BoxShadow(
-            offset: Offset(2, 2),
+            offset: const Offset(2, 2),
             color: isOutlined ? primary : black,
           ),
         ],
@@ -31,7 +31,7 @@ class NoteButton extends StatelessWidget {
         style: ElevatedButton.styleFrom(
           backgroundColor: isOutlined ? white : primary,
           foregroundColor: isOutlined ? primary : white,
-          side:  BorderSide(color: isOutlined ? primary : black),
+          side: BorderSide(color: isOutlined ? primary : black),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(8),
           ),

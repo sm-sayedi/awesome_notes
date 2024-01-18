@@ -5,7 +5,9 @@ import 'note_button.dart';
 class ConfirmationDialog extends StatelessWidget {
   const ConfirmationDialog({
     super.key,
+    required this.title,
   });
+  final String title;
 
   @override
   Widget build(BuildContext context) {
@@ -13,8 +15,8 @@ class ConfirmationDialog extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text(
-          'Do you want to save the note?',
+        Text(
+          title,
           style: TextStyle(
             fontSize: 16,
             fontWeight: FontWeight.bold,

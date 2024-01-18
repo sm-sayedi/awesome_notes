@@ -7,8 +7,6 @@ import '../core/constants.dart';
 import '../core/dialogs.dart';
 import '../core/utils.dart';
 import '../models/note.dart';
-import 'dialog_card.dart';
-import 'new_tag_dialog.dart';
 import 'note_icon_button.dart';
 import 'note_tag.dart';
 

@@ -14,9 +14,12 @@ Future<String?> showNewTagDialog({
   );
 }
 
-Future<bool?> showConfirmationDialog({required BuildContext context}) {
+Future<bool?> showConfirmationDialog({
+  required BuildContext context,
+  required String title,
+}) {
   return showDialog<bool?>(
     context: context,
-    builder: (_) => const DialogCard(child: ConfirmationDialog()),
+    builder: (_) => DialogCard(child: ConfirmationDialog(title: title)),
   );
 }

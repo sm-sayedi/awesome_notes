@@ -6,8 +6,6 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 
 import '../core/dialogs.dart';
-import '../widgets/confirmation_dialog.dart';
-import '../widgets/dialog_card.dart';
 import '../widgets/note_icon_button_outlined.dart';
 import '../widgets/note_metadata.dart';
 import '../widgets/note_toolbar.dart';
@@ -77,7 +75,10 @@ class _NewOrEditNotePageState extends State<NewOrEditNotePage> {
           return;
         }
 
-        final bool? shouldSave = await showConfirmationDialog(context: context);
+        final bool? shouldSave = await showConfirmationDialog(
+          context: context,
+          title: 'Do you want to save the note?',
+        );
 
         if (shouldSave == null) return;
 
