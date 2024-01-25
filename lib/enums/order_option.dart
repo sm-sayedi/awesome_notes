@@ -1,4 +1,3 @@
-
 enum OrderOption {
   dateModified,
   dateCreated;

@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1093698309534",
+    "project_id": "awesome-notes-29a3e",
+    "storage_bucket": "awesome-notes-29a3e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1093698309534:android:556167c87212a5bc081a8f",
+        "android_client_info": {
+          "package_name": "com.smsayedi.awesome_notes"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC5lYzY77812ELBCXujMcpSGH5knI_U3Zk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

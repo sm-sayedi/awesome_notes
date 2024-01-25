@@ -1,10 +1,10 @@
-import 'package:awesome_notes/change_notifiers/new_note_controller.dart';
-import 'package:awesome_notes/core/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_quill/flutter_quill.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 
+import '../change_notifiers/new_note_controller.dart';
+import '../core/constants.dart';
 import '../core/dialogs.dart';
 import '../widgets/note_icon_button_outlined.dart';
 import '../widgets/note_metadata.dart';

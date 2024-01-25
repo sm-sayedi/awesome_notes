@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 
 import '../models/note.dart';
@@ -23,7 +22,7 @@ class NotesGrid extends StatelessWidget {
         mainAxisSpacing: 8,
       ),
       itemBuilder: (context, int index) {
-          return  NoteCard(
+        return NoteCard(
           note: notes[index],
           isInGrid: true,
         );

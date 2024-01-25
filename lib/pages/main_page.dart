@@ -1,11 +1,9 @@
-import 'package:awesome_notes/change_notifiers/new_note_controller.dart';
-import 'package:awesome_notes/change_notifiers/notes_provider.dart';
-import 'package:awesome_notes/pages/new_or_edit_note_page.dart';
-import 'package:awesome_notes/widgets/view_options.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 
+import '../change_notifiers/new_note_controller.dart';
+import '../change_notifiers/notes_provider.dart';
 import '../models/note.dart';
 import '../widgets/no_notes.dart';
 import '../widgets/note_fab.dart';
@@ -13,6 +11,8 @@ import '../widgets/note_grid.dart';
 import '../widgets/note_icon_button_outlined.dart';
 import '../widgets/notes_list.dart';
 import '../widgets/search_field.dart';
+import '../widgets/view_options.dart';
+import 'new_or_edit_note_page.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({super.key});

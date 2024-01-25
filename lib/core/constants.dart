@@ -1,4 +1,3 @@
-
 // App-wide colors
 import 'package:flutter/material.dart';
 

@@ -1,8 +1,8 @@
-import 'package:awesome_notes/change_notifiers/notes_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 
+import '../change_notifiers/notes_provider.dart';
 import '../core/constants.dart';
 import '../enums/order_option.dart';
 import 'note_icon_button.dart';

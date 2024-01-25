@@ -1,11 +1,12 @@
 import 'dart:convert';
 
-import 'package:awesome_notes/change_notifiers/notes_provider.dart';
-import 'package:awesome_notes/models/note.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_quill/flutter_quill.dart';
 import 'package:provider/provider.dart';
+
+import '../models/note.dart';
+import 'notes_provider.dart';
 
 class NewNoteController extends ChangeNotifier {
   Note? _note;

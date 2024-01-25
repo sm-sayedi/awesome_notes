@@ -1,8 +1,8 @@
-import 'package:awesome_notes/core/extensions.dart';
 import 'package:flutter/material.dart';
 
 import '../enums/order_option.dart';
 import '../models/note.dart';
+import '../core/extensions.dart';
 
 class NotesProvider extends ChangeNotifier {
   final List<Note> _notes = [];
