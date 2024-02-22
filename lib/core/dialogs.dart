@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../widgets/confirmation_dialog.dart';
-import '../widgets/dialog_card.dart';
+import '../widgets/message_dialog.dart';
 import '../widgets/new_tag_dialog.dart';
 
 Future<String?> showNewTagDialog({
@@ -10,7 +10,7 @@ Future<String?> showNewTagDialog({
 }) {
   return showDialog<String?>(
     context: context,
-    builder: (context) => DialogCard(child: NewTagDialog(tag: tag)),
+    builder: (context) => NewTagDialog(tag: tag),
   );
 }
 
@@ -20,6 +20,16 @@ Future<bool?> showConfirmationDialog({
 }) {
   return showDialog<bool?>(
     context: context,
-    builder: (_) => DialogCard(child: ConfirmationDialog(title: title)),
+    builder: (_) => ConfirmationDialog(title: title),
+  );
+}
+
+Future<bool?> showMessageDialog({
+  required BuildContext context,
+  required String message,
+}) {
+  return showDialog<bool?>(
+    context: context,
+    builder: (_) => MessageDialog(message: message),
   );
 }

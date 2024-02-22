@@ -9,6 +9,7 @@ import '../core/validator.dart';
 import '../widgets/note_button.dart';
 import '../widgets/note_form_field.dart';
 import '../widgets/note_icon_button_outlined.dart';
+import 'recover_password_page.dart';
 
 class RegistrationPage extends StatefulWidget {
   const RegistrationPage({super.key});
@@ -88,6 +89,9 @@ class _RegistrationPageState extends State<RegistrationPage> {
                           textCapitalization: TextCapitalization.sentences,
                           textInputAction: TextInputAction.next,
                           validator: Validator.nameValidator,
+                          onChanged: (newValue) {
+                            registrationController.fullName = newValue;
+                          },
                         ),
                         const SizedBox(height: 8),
                       ],
@@ -99,6 +103,9 @@ class _RegistrationPageState extends State<RegistrationPage> {
                         keyboardType: TextInputType.emailAddress,
                         textInputAction: TextInputAction.next,
                         validator: Validator.emailValidator,
+                        onChanged: (newValue) {
+                          registrationController.email = newValue;
+                        },
                       ),
                       const SizedBox(height: 8),
                       Selector<RegistrationController, bool>(
@@ -120,28 +127,58 @@ class _RegistrationPageState extends State<RegistrationPage> {
                                 : FontAwesomeIcons.eyeSlash),
                           ),
                           validator: Validator.passwordValidator,
+                          onChanged: (newValue) {
+                            registrationController.password = newValue;
+                          },
                         ),
                       ),
                       const SizedBox(height: 12),
                       if (!isRegisterMode) ...[
-                        const Text(
-                          'Forgot password?',
-                          style: TextStyle(
-                            color: primary,
-                            fontWeight: FontWeight.bold,
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (_) => const RecoverPasswordpage(),
+                              ),
+                            );
+                          },
+                          child: const Text(
+                            'Forgot password?',
+                            style: TextStyle(
+                              color: primary,
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
                         ),
                         const SizedBox(height: 24),
                       ],
                       SizedBox(
                         height: 48,
-                        child: NoteButton(
-                          label: isRegisterMode
-                              ? 'Create my account'
-                              : 'Log me in',
-                          onPressed: () {
-                            formKey.currentState?.validate();
-                          },
+                        child: Selector<RegistrationController, bool>(
+                          selector: (_, controller) => controller.isLoading,
+                          builder: (_, isLoading, __) => NoteButton(
+                            onPressed: isLoading
+                                ? null
+                                : () {
+                                    if (formKey.currentState?.validate() ??
+                                        false) {
+                                      registrationController
+                                          .authenticateWithEmailAndPassword(
+                                              context: context);
+                                    }
+                                  },
+                            child: isLoading
+                                ? const SizedBox(
+                                    width: 24,
+                                    height: 24,
+                                    child:
+                                        CircularProgressIndicator(color: white),
+                                  )
+                                : Text(isRegisterMode
+                                    ? 'Create my account'
+                                    : 'Log me in'),
+                          ),
                         ),
                       ),
                       const SizedBox(height: 32),
