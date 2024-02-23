@@ -5,12 +5,12 @@ import '../core/constants.dart';
 class NoteButton extends StatelessWidget {
   const NoteButton({
     super.key,
-    required this.label,
+    required this.child,
     this.onPressed,
     this.isOutlined = false,
   });
 
-  final String label;
+  final Widget child;
   final VoidCallback? onPressed;
   final bool isOutlined;
 
@@ -31,6 +31,8 @@ class NoteButton extends StatelessWidget {
         style: ElevatedButton.styleFrom(
           backgroundColor: isOutlined ? white : primary,
           foregroundColor: isOutlined ? primary : white,
+          disabledBackgroundColor: gray300,
+          disabledForegroundColor: black,
           side: BorderSide(color: isOutlined ? primary : black),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(8),
@@ -38,7 +40,7 @@ class NoteButton extends StatelessWidget {
           elevation: 0,
           tapTargetSize: MaterialTapTargetSize.shrinkWrap,
         ),
-        child: Text(label),
+        child: child,
       ),
     );
   }

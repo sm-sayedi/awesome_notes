@@ -1,13 +1,15 @@
-import 'package:awesome_notes/change_notifiers/registration_controller.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import 'change_notifiers/notes_provider.dart';
+import 'change_notifiers/registration_controller.dart';
 import 'core/constants.dart';
 import 'firebase_options.dart';
 import 'pages/main_page.dart';
 import 'pages/registration_page.dart';
+import 'services/auth_service.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -45,7 +47,14 @@ class MyApp extends StatelessWidget {
                 ),
               ),
         ),
-        home: const RegistrationPage(),
+        home: StreamBuilder<User?>(
+          stream: AuthService.userStream,
+          builder: (context, snapshot) {
+            return snapshot.hasData && AuthService.isEmailVerified
+                ? const MainPage()
+                : const RegistrationPage();
+          },
+        ),
       ),
     );
   }
