@@ -96,6 +96,20 @@ class RegistrationController extends ChangeNotifier {
     }
   }
 
+  Future<void> authenticateWithGoogle({required BuildContext context}) async {
+    try {
+      await AuthService.signInWithGoogle();
+    } on NoGoogleAccountChosenException {
+      return;
+    } catch (e) {
+      if (!context.mounted) return;
+      showMessageDialog(
+        context: context,
+        message: 'An unkown error occurred!',
+      );
+    }
+  }
+
   Future<void> resetPassword({
     required BuildContext context,
     required String email,
@@ -124,4 +138,8 @@ class RegistrationController extends ChangeNotifier {
       isLoading = false;
     }
   }
+}
+
+class NoGoogleAccountChosenException implements Exception {
+  const NoGoogleAccountChosenException();
 }

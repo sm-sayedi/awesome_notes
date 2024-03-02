@@ -63,6 +63,8 @@ class DefaultFirebaseOptions {
     messagingSenderId: '1093698309534',
     projectId: 'awesome-notes-29a3e',
     storageBucket: 'awesome-notes-29a3e.appspot.com',
+    androidClientId: '1093698309534-eggemvpfoeca520f8n2uqbabr5difujr.apps.googleusercontent.com',
+    iosClientId: '1093698309534-be1k07sm1nda1ifuqibfrkseqshn7fsm.apps.googleusercontent.com',
     iosBundleId: 'com.smsayedi.awesomeNotes',
   );
 }

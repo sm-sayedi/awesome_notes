@@ -201,7 +201,10 @@ class _RegistrationPageState extends State<RegistrationPage> {
                           Expanded(
                             child: NoteIconButtonOutlined(
                               icon: FontAwesomeIcons.google,
-                              onPressed: () {},
+                              onPressed: () {
+                                registrationController.authenticateWithGoogle(
+                                    context: context);
+                              },
                             ),
                           ),
                           const SizedBox(width: 16),

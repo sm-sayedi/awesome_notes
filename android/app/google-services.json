@@ -12,7 +12,20 @@
           "package_name": "com.smsayedi.awesome_notes"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "1093698309534-eggemvpfoeca520f8n2uqbabr5difujr.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.smsayedi.awesome_notes",
+            "certificate_hash": "f0ac3ea0f620e2aad0325a83162eafc9f65d08b9"
+          }
+        },
+        {
+          "client_id": "1093698309534-v57h3dj3ve1h0jafkjmbptb6f3ncr7pm.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyC5lYzY77812ELBCXujMcpSGH5knI_U3Zk"
@@ -20,7 +33,19 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1093698309534-v57h3dj3ve1h0jafkjmbptb6f3ncr7pm.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "1093698309534-be1k07sm1nda1ifuqibfrkseqshn7fsm.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.smsayedi.awesomeNotes"
+              }
+            }
+          ]
         }
       }
     }
